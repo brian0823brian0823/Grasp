@@ -2,6 +2,25 @@
 
 var levelColors = ['panel-danger', 'panel-danger', 'panel-warning', 'panel-default', 'panel-success', 'panel-success'];
 
+function fromScoreToStars(score) {
+	if (score >= 0 && score < 20) {
+		return '  ' + '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>' +' ' + '<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>';
+	}
+	else if(score >= 20 && score < 40){
+		return '  ' + '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>';
+	}
+	else if (score >= 40 && score < 60){
+		return '  ' + '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>';
+	}
+	else if (score >= 60 && score < 80){
+		return '  ' + '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>';
+	}
+	else {
+		return '  ' + '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' +'  ' + '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>';
+	}
+	
+}
+
 function addNewReview(courseCategory, data)
 {
 
@@ -36,7 +55,6 @@ function addNewReview(courseCategory, data)
 																}
 											});
 											   commentElem += "</div>";
-											   console.log(commentElem);
 											   
 											   // modal
 											   var modal = "<div class='modal fade' id='"+modalId+"' tabindex='-1' role='dialog' aria-labelledby='"+modalId+'Title'+" aria-hidden=true><div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'><h2 class='modal-title' id='"+modalId+'Title'+"'>Comments</h5><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'>" +commentElem+ "</div><div class='modal-footer'><button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button><button type='button' class='btn btn-primary'>Save changes</button></div></div></div></div>"
@@ -47,11 +65,11 @@ function addNewReview(courseCategory, data)
 											   }
 											   eachRow += modal + "<div class='col-md-6 img-portfolio' data-toggle='modal' data-target='#"+modalId+"'><div class='panel " + levelColors[parseInt(score/20)] + "'><div class='panel-heading'><div class='row'><div class='col-md-9 img-portfolio'><strong>"+ courseCode + ' ' + courseData.title + "</strong></div><div class='col-md-3 img-portfolio'><p>" + comments.length + ' ' + "reviews</p></div></div></div><div class='panel-body'><div class='row'><div class='col-md-9 img-portfolio'>";
 											   if (sentiments.grade.count != 0)
-												eachRow += "<p>Grade" +'    '+  (parseInt(sentiments.grade.score*50)+50) + "</p>";
+												eachRow += "<p>Grade" +'    '+  fromScoreToStars(parseInt(sentiments.grade.score*50)+50) + "</p>";
 											  if (sentiments.professor.count != 0)
-												eachRow += "<p>Instructor" +'    '+  (parseInt(sentiments.professor.score*50)+50) + "</p>";
+												eachRow += "<p>Instructor" +'    '+  fromScoreToStars(parseInt(sentiments.professor.score*50)+50) + "</p>";
 											  if (sentiments.workload.count != 0)
-												eachRow += "<p>Workload" +'    '+  (parseInt(sentiments.workload.score*50)+50) + "</p>";
+												eachRow += "<p>Workload" +'    '+  fromScoreToStars(parseInt(sentiments.workload.score*50)+50) + "</p>";
 											   
 											   eachRow += "</div><div class='col-md-3 img-portfolio'><h1><span class='label label-success'>" + score + "</span></h1></div></div></div></div>";
 											   
